@@ -2,7 +2,7 @@ class ContactsController < ApplicationController
   before_action :require_user_logged_in!
   before_action :find_contact, only: [:edit, :update, :destroy]
     def index
-      @contacts = Contact.all
+      @contacts = Contact.paginate(page: params[:page], per_page: 5)
     end
     def new
      @contact = Contact.new
@@ -37,6 +37,6 @@ class ContactsController < ApplicationController
     end
     private
     def contact_params
-      params.require(:contact).permit(:name, :email, :company, :address ,:phone )
+      params.require(:contact).permit(:name, :email, :company, :address ,:phone ,:dob, :image)
     end
   end
